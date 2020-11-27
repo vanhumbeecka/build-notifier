@@ -1,0 +1,7 @@
+**/*.d.ts
+node_modules
+dist
+certs
+build
+scripts
+static

@@ -1,0 +1,180 @@
+{
+  "name": "build-notifier",
+  "description": "Build Notifier gives you quick access to your latest build output",
+  "version": "0.3.1",
+  "homepage": "buildnotifier.app",
+  "license": "MIT",
+  "author": {
+    "name": "Andries Van Humbeeck"
+  },
+  "build": {
+    "afterSign": "scripts/notarize.js",
+    "appId": "be.codemine.buildnotifier",
+    "productName": "Build Notifier",
+    "artifactName": "${name}-${version}.${ext}",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "type": "distribution",
+      "icon": "build/icons/icon_512x512.png",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "https://releases.buildnotifier.app/"
+        },
+        {
+          "provider": "custom",
+          "bucket": "releases.buildnotifier.app",
+          "serviceAccount": "/Users/andries/.gcloud/buildnotifier-publisher.json"
+        }
+      ]
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icons/icon_512x512.png",
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "https://releases.buildnotifier.app/"
+        },
+        {
+          "provider": "custom",
+          "bucket": "releases.buildnotifier.app",
+          "serviceAccount": "/Users/andries/.gcloud/buildnotifier-publisher.json"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "build/icons/icon_512x512.png",
+      "category": "Development",
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "https://releases.buildnotifier.app/"
+        },
+        {
+          "provider": "custom",
+          "bucket": "releases.buildnotifier.app",
+          "serviceAccount": "/Users/andries/.gcloud/buildnotifier-publisher.json"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "script": "node ./scripts/test.js",
+    "clean": "rimraf ./dist",
+    "compile": "electron-webpack",
+    "dev": "electron-webpack dev",
+    "dist:mac:local": "yarn clean && yarn compile && SKIP_NOTARIZE=1 electron-builder -m --publish never",
+    "dist:mac": "yarn clean && yarn compile && electron-builder -m --publish never",
+    "dist:win": "yarn clean && yarn compile && electron-builder -w --publish never",
+    "dist:linux": "yarn clean && yarn compile && electron-builder -l --publish never",
+    "dist:all": "yarn clean && yarn compile && electron-builder -mwl --publish never",
+    "release:mac": "yarn dist:mac --publish always",
+    "release:win": "yarn dist:win --publish always",
+    "release:linux": "yarn dist:linux --publish always",
+    "release:all": "yarn dist:all --publish always",
+    "lint": "eslint -c .eslintrc '?(src|test)/**/*.?(ts|vue)'",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps"
+  },
+  "main": "dist/main/main.js",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-brands-svg-icons": "^5.14.0",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/vue-fontawesome": "^0.1.10",
+    "@sentry/electron": "^2.0.0",
+    "@sentry/integrations": "^5.19.2",
+    "auto-launch": "^5.0.5",
+    "axios": "^0.19.2",
+    "base-64": "^0.1.0",
+    "core-js": "^3.6.5",
+    "echarts": "^4.8.0",
+    "electron-log": "^4.2.2",
+    "electron-updater": "^4.3.1",
+    "element-ui": "2.13.2",
+    "js-yaml": "^3.14.0",
+    "jwt-decode": "^2.2.0",
+    "keytar": "^6.0.1",
+    "lodash": "^4.17.19",
+    "menubar": "^9.0.1",
+    "moment": "^2.27.0",
+    "qs": "^6.9.4",
+    "source-map-support": "^0.5.16",
+    "vue": "^2.6.11",
+    "vue-echarts": "^5.0.0-beta.0",
+    "vue-router": "^3.3.4",
+    "vuex": "^3.4.0",
+    "vuex-electron": "^1.0.3"
+  },
+  "devDependencies": {
+    "@google-cloud/storage": "^5.1.2",
+    "@sentry/cli": "^1.56.1",
+    "@types/auto-launch": "^5.0.1",
+    "@types/axios": "^0.14.0",
+    "@types/base-64": "^0.1.3",
+    "@types/echarts": "^4.6.3",
+    "@types/jwt-decode": "^2.2.1",
+    "@types/lodash": "^4.14.157",
+    "@types/node": "12",
+    "@types/node-fetch": "^2.5.7",
+    "@types/qs": "^6.9.3",
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "dotenv": "^8.2.0",
+    "electron": "^9.0.4",
+    "electron-builder": "^22.7.0",
+    "electron-download": "^4.1.1",
+    "electron-notarize": "^1.0.0",
+    "electron-webpack": "^2.8.2",
+    "electron-webpack-eslint": "^6.0.0",
+    "electron-webpack-ts": "^4.0.1",
+    "electron-webpack-vue": "^2.4.0",
+    "eslint": "^7.7.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-html": "^6.0.3",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.14.1",
+    "rimraf": "^3.0.2",
+    "sass-loader": "^8.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5",
+    "vue-cli-plugin-electron-builder": "^2.0.0-rc.2",
+    "vue-devtools": "^5.1.3",
+    "vue-eslint-parser": "^7.1.0",
+    "vue-property-decorator": "^9.0.0",
+    "vuex-module-decorators": "^0.17.0",
+    "webpack": "^4.43.0",
+    "webpack-build-notifier": "^2.0.1"
+  },
+  "electronWebpack": {
+    "main": {
+      "sourceDirectory": "src/main"
+    },
+    "whiteListedModules": [
+      "element-ui",
+      "echarts",
+      "vue-echarts",
+      "echarts/lib/chart/bar",
+      "echarts/lib/component/tooltip"
+    ]
+  }
+}

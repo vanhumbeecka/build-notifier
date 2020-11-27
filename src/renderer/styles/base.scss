@@ -1,0 +1,84 @@
+@import "element-variables";
+@import "variables";
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    background-color: whitesmoke;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 400;
+}
+h2 {
+    font-size: 18px;
+    font-weight: 400;
+}
+h3 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.flex-item {
+    flex: 1
+}
+
+.bn-title {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.bn-button {
+    cursor: pointer;
+}
+
+.bn-vertical-spacing {
+    margin-bottom: 24px;
+}
+
+.bn-flex-horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.bn-flex-vertical {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bn-no-overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bn-row-item {
+    height: 60px;
+    align-items: center;
+}
+
+.bn-defocus {
+    font-style: italic;
+    color: $--color-text-secondary;
+}
+
+.bn-highlight {
+    color: $--color-text-primary;
+}
+
+.bn-subtext {
+    font-size: $bn-font-small;
+    color: $--color-text-secondary;
+}
+
+.btn-block {
+    width: 100%;
+}

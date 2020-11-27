@@ -1,0 +1,17 @@
+.DS_Store
+dist/
+certs/
+node_modules/
+thumbs.db
+.idea/
+.env
+.vscode
+
+#Electron-builder output
+/dist_electron
+
+*.iml
+yarn-error.log
+scripts/*.json
+sentry.properties
+
