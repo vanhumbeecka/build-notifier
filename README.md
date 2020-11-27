@@ -38,7 +38,7 @@ This repository uses `yarn` for package management (as is the default for most e
 Copy the `.env.example` to a new `.env` file (gitignored) and add your own environment variables.
 
 ```bash
-# install dependancies
+# install dependencies
 yarn
 
 # run application in development mode
