@@ -12,7 +12,7 @@ or you can build your own version from source code. See the scripts section belo
 If the CI Service supports the OAuth2 spec, then the 'authorization code' grant is used (e.g. Bitbucket, Github)
 If not, the custom authentication of the CI service is used (e.g. CircleCI)
 
-For the authorization code flow, a separate back-end service is used. (Different repository)
+For the authorization code flow, a separate back-end service is used. ([Different repository](https://github.com/vanhumbeecka/build-notifier-auth))
 
 ## Roadmap
 
